@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>عيد ميلاد سعيد!</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        background: linear-gradient(to bottom, #0d0d2e, #0b1a47);
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        height: 100vh;
+      }
+      h1 {
+        color: #fff;
+        margin-top: 50px;
+        font-size: 50px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        @media (max-width: 767px) {
+          font-size: 27px;
+          width: 100%;
+        }
+      }
+      .images {
+        img {
+          width: 300px;
+          @media (max-width: 767px) {
+            width: 200px;
+          }
+        }
+      }
+      .btn {
+        margin-top: 30px;
+        padding: 15px 30px;
+        background: #ff4b5c;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        font-size: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+        border: none;
+        outline: none;
+      }
+      .btn:hover {
+        background: #ff6b81;
+      }
+      .moon {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffffff, #c3c3c3);
+        position: absolute;
+        top: 50px;
+        left: 85%;
+        box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+        animation: moon-move 10s linear infinite alternate;
+      }
+      @keyframes moon-move {
+        0% {
+          left: 85%;
+          top: 50px;
+        }
+        100% {
+          left: 75%;
+          top: 70px;
+        }
+      }
+      .star {
+        width: 3px;
+        height: 3px;
+        background: #ffffff;
+        position: absolute;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #ffffff;
+        animation: twinkle 3s infinite ease-in-out;
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      .meteor {
+        width: 5px;
+        height: 20px;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 165, 0, 0.8)
+        ); 
+        position: absolute;
+        border-radius: 2px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+          0 0 30px rgba(255, 165, 0, 0.7); 
+        opacity: 0.9;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0) translateX(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) translateX(-100px);
+          opacity: 0;
+        }
+      }
+      .balloon {
+        width: 50px;
+        height: 70px;
+        position: absolute;
+        bottom: -100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6b81, #ff4b5c);
+        will-change: transform;
+      }
+      .balloon:after {
+        content: "";
+        width: 2px;
+        height: 50px;
+        background: #fff;
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: wave 1s ease-in-out infinite;
+      }
+      @keyframes wave {
+        0%,
+        100% {
+          transform: translateX(-50%) rotate(0deg);
+        }
+        50% {
+          transform: translateX(-50%) rotate(10deg);
+        }
+      }
+      .cube,
+      .circle,
+      .triangle {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        bottom: -50px;
+        will-change: transform;
+      }
+      .cube {
+        background: #ffeaa7;
+        transform: rotate(45deg);
+      }
+      .circle {
+        border-radius: 50%;
+        background: radial-gradient(circle, #74b9ff, #0984e3);
+      }
+      .triangle {
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 30px solid #ff7675;
+      }
+      .cake {
+        width: 60px;
+        height: 40px;
+        position: absolute;
+        bottom: -100px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        will-change: transform;
+      }
+
+      .cake:before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background: yellow;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 5px;
+      }
+
+      .images-container {
+        display: none;
+        margin-top: 20px;
+        position: relative;
+      }
+      .images-container .image-wrapper {
+        opacity: 0;
+        transform: scale(0.5);
+        transition: all 0.5s ease-in-out;
+        position: relative;
+      }
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .images-container img {
+        width: 300px;
+        height: 300px;
+        margin: 10px;
+        border-radius: 15px;
+        transition: transform 0.5s ease-in-out;
+        @media (max-width: 767px) {
+          width: 200px;
+          height: 300px;
+        }
+      }
+      .images-container img:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="moon"></div>
+
+    <div id="stars"></div>
+
+    <div id="meteors"></div>
+
+    <div class="header">
+      <h1>عيد ميلاد سعيد، يا أجمل كتكوته !</h1>
+      <div class="images">
+        <img src="img.png" alt="Haneen" />
+      </div>
+      <button class="btn" onclick="startSurprise()">شوفي المفجأه يا قمري!</button>
+    </div>
+
+    <div class="animation-container"></div>
+
+    <div class="images-container"></div>
+
+    <audio id="bg-music" loop>
+      <source
+        src="happy-birthday-to-you-bossa-nova-style-arrangement-21399.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+      function startSurprise() {
+        const music = document.getElementById("bg-music");
+        music.play();
+
+        document.querySelector(".btn").style.display = "none";
+        document.querySelector(".images").style.display = "none";
+
+        const container = document.querySelector(".animation-container");
+
+        for (let i = 0; i < 20; i++) {
+          let shape = document.createElement("div");
+
+          if (i % 4 === 0) {
+            shape.className = "balloon";
+            shape.style.background = `linear-gradient(135deg, hsl(${
+              Math.random() * 360
+            }, 100%, 75%), hsl(${Math.random() * 360}, 100%, 50%))`;
+          } else if (i % 4 === 1) {
+            shape.className = "cube";
+            shape.style.background = `hsl(${Math.random() * 360}, 100%, 75%)`;
+          } else if (i % 4 === 2) {
+            shape.className = "circle";
+          } else if (i % 4 === 3) {
+            shape.className = "cake";
+            shape.style.background = `radial-gradient(circle, #ffcccb 40%, #ff6f61 60%)`; // شكل الكعكة
+          }
+
+          shape.style.left = Math.random() * 100 + "%";
+          container.appendChild(shape);
+
+          gsap.to(shape, {
+            y: -window.innerHeight - 100,
+            duration: Math.random() * 3 + 3,
+            ease: "power1.inOut",
+            repeat: -1,
+            stagger: 0.1,
+            onComplete: () => shape.remove(),
+          });
+        }
+
+        const imageData = [
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.01.28_48d383ac.jpg",
+            alt: "صورة 1",
+            overlayText: "أنتِ أجمل هدية بعتها ليا ربنا. 🎁❤️",
+          },
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.47.55_21521338.jpg",
+            alt: "صورة 2",
+            overlayText: "ربنا يخليكي ليا يا حبيبتي، وأشوفك دايما مبسوطه. 😊💖",
+          },
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.47.56_02adfc10.jpg",
+            alt: "صورة 3",
+            overlayText: "كل سنة وأنتِ طيبة، يا حته من قلبي . 🎉💞",
+          },
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.47.56_07aef973.jpg",
+            alt: "صورة 4",
+            overlayText: " مشوفتش أجمل منكِ، ومش هشوف اجمل منك يا حته من قلبي انت. 🌹✨",
+          },
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.47.56_6c1a2774.jpg",
+            alt: "صورة 5",
+            overlayText: "عيني مشافتش حد زيك و ولا هتشوف حد زيك يا قمري انت! 😍👀",
+          },
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.47.56_171b8a95.jpg",
+            alt: "صورة 6",
+            overlayText: "يارب أشوفك دائمًا مبسوطه يا بنوتي يا قمر. 🌙💖",
+          },
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.47.56_356ffaf4.jpg",
+            alt: "صورة 7",
+            overlayText: " مفيش في جمال عيونك، فأنتِ النجمة في السماء. 🌟💫",
+          },
+          {
+            src: "WhatsApp Image 2024-01-31 at 19.47.56_aeda1f41.jpg",
+            alt: "صورة 8",
+            overlayText: "بحبك أكثر من نفسي، يا حته مني. ❤️💕",
+          },
+        ];
+
+        const imagesContainer = document.querySelector(".images-container");
+        imageData.forEach(({ src, alt, overlayText }) => {
+          const imageWrapper = document.createElement("div");
+          imageWrapper.className = "image-wrapper";
+
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = alt;
+
+          const overlay = document.createElement("div");
+          overlay.className = "overlay";
+          overlay.textContent = overlayText;
+
+          imageWrapper.appendChild(img);
+          imageWrapper.appendChild(overlay);
+          imagesContainer.appendChild(imageWrapper);
+        });
+
+        let images = document.querySelectorAll(".image-wrapper");
+        document.querySelector(".images-container").style.display = "block";
+
+        function startAnimation() {
+          let animationDelay = 0;
+
+          images.forEach((image, index) => {
+            setTimeout(() => {
+              const overlay = image.querySelector(".overlay");
+
+              gsap.to(image, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+                ease: "power1.out",
+              });
+
+              setTimeout(() => {
+                gsap.to(overlay, {
+                  opacity: 1,
+                  duration: 0.5,
+                  ease: "power1.out",
+                });
+
+                setTimeout(() => {
+                  gsap.to(overlay, {
+                    opacity: 0,
+                    duration: 0.5,
+                  });
+                }, 2000);
+
+                setTimeout(() => {
+                  gsap.to(image, {
+                    opacity: 0,
+                    scale: 0.5,
+                    duration: 0.5,
+                    ease: "power1.in",
+                    onComplete: () => {
+                      image.remove();
+                    },
+                  });
+                }, 3000);
+              }, 2000);
+            }, animationDelay);
+
+            animationDelay += 6000;
+          });
+
+          setTimeout(() => {
+            imagesContainer.innerHTML = "";
+            imageData.forEach(({ src, alt, overlayText }) => {
+              const imageWrapper = document.createElement("div");
+              imageWrapper.className = "image-wrapper";
+
+              const img = document.createElement("img");
+              img.src = src;
+              img.alt = alt;
+
+              const overlay = document.createElement("div");
+              overlay.className = "overlay";
+              overlay.textContent = overlayText;
+
+              imageWrapper.appendChild(img);
+              imageWrapper.appendChild(overlay);
+              imagesContainer.appendChild(imageWrapper);
+            });
+
+            images = document.querySelectorAll(".image-wrapper");
+
+            startAnimation();
+          }, images.length * 6000);
+        }
+
+        images.forEach((image) => {
+          image.style.opacity = 0;
+          image.style.scale = 0.5;
+        });
+
+        startAnimation();
+      }
+
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        for (let i = 0; i < 80; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          starsContainer.appendChild(star);
+        }
+      }
+
+      function createMeteors() {
+        const meteorsContainer = document.getElementById("meteors");
+        setInterval(() => {
+          const meteor = document.createElement("div");
+          meteor.className = "meteor";
+          meteor.style.left = Math.random() * 100 + "%";
+          meteor.style.top = Math.random() * -20 + "%";
+          meteorsContainer.appendChild(meteor);
+
+          const xMovement = (Math.random() - 0.5) * 200;
+          gsap.to(meteor, {
+            y: window.innerHeight + 100,
+            x: xMovement,
+            duration: 1.5,
+            ease: "power1.in",
+            onComplete: () => meteor.remove(),
+          });
+        }, 500);
+      }
+
+      createStars();
+      createMeteors();
+    </script>
+  </body>
+</html>
